@@ -31,7 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+//import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IMU;
@@ -110,6 +110,25 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
     private int     leftTarget    = 0;
     private int     rightTarget   = 0;
 
+    public enum START_POSITION{
+        BLUE_NEAR,
+        BLUE_FAR,
+        RED_NEAR,
+        RED_FAR,
+
+
+        }
+    public static START_POSITION startPosition;
+
+    public static String TEAM_NAME = "EDIT TEAM NAME"; //TODO: Enter team Name
+    public static int TEAM_NUMBER = 0; //TODO: Enter team Number
+
+
+
+
+
+
+
     // Calculate the COUNTS_PER_INCH for your specific drive train.
     // Go to your motor vendor website to determine your motor's COUNTS_PER_MOTOR_REV
     // For external drive gearing, set DRIVE_GEAR_REDUCTION as needed.
@@ -118,7 +137,7 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
     // For gearing UP, use a gear ratio less than 1.0. Note this will affect the direction of wheel rotation.
     static final double     COUNTS_PER_MOTOR_REV    = 537.7 ;   // eg: GoBILDA 312 RPM Yellow Jacket
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // No External Gearing.
-    static final double     WHEEL_DIAMETER_INCHES   = 3.75;     // For figuring circumference
+    static final double     WHEEL_DIAMETER_INCHES   = 3.78;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
                                                       (WHEEL_DIAMETER_INCHES * 3.1415);
 
@@ -138,6 +157,10 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+
+        //Key Pay inputs to selecting Starting Position of robot
+        selectStartingPosition();
+        telemetry.addData("Selected Starting Position", startPosition);
 
         // Initialize the drive system variables.
         leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
@@ -188,25 +211,62 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
         //          holdHeading() is used after turns to let the heading stabilize
         //          Add a sleep(2000) after any step to keep the telemetry data visible for review
 
-        claw.closeClaw(); // Close Claw
-        armAndWrist.carryPosition(); // Mve Arm and Wrist to Close position
-        holdHeading( TURN_SPEED, 0.0, 10);   // Hold 0 Deg heading for 10 seconds
-        driveStraight(DRIVE_SPEED, 5.0, 0.0);    // Drive Forward 5"
-        turnToHeading( TURN_SPEED, 90.0);               // Turn  CCW to 90 Degrees
-        holdHeading( TURN_SPEED, 90.0, 0.5);   // Hold 90 Deg heading for a 1/2 second
-        driveStraight(DRIVE_SPEED, 44.0, 90.0); // Drive Forward 44"
-        armAndWrist.startPosition(); // Move Arm and Wrist to Start position
-        claw.openClaw(); // Open Claw
+        switch (startPosition) {
+            case BLUE_NEAR:
 
-        //driveStraight(DRIVE_SPEED, 17.0, -45.0);  // Drive Forward 17" at -45 degrees (12"x and 12"y)
-        //turnToHeading( TURN_SPEED,  45.0);               // Turn  CCW  to  45 Degrees
-        //holdHeading( TURN_SPEED,  45.0, 0.5);    // Hold  45 Deg heading for a 1/2 second
+                //Blue_Near
+                claw.closeClaw(); // Close Claw
+                armAndWrist.carryPosition(); // Mve Arm and Wrist to Close position
+                holdHeading(TURN_SPEED, 0.0, .5);   // Hold 0 Deg heading for 10 seconds
+                driveStraight(DRIVE_SPEED, 3.5, 0.0);    // Drive Forward 5"
+                turnToHeading(TURN_SPEED, 90.0);               // Turn  CCW to 90 Degrees
+                holdHeading(TURN_SPEED, 90.0, 0.5);   // Hold 90 Deg heading for a 1/2 second
+                driveStraight(DRIVE_SPEED, 44.0, 90.0); // Drive Forward 44"
+                armAndWrist.startPosition(); // Move Arm and Wrist to Start position
+                claw.openClaw(); // Open Claw
+                break;
 
-        //driveStraight(DRIVE_SPEED, 17.0, 45.0);  // Drive Forward 17" at 45 degrees (-12"x and 12"y)
-        //turnToHeading( TURN_SPEED,   0.0);               // Turn  CW  to 0 Degrees
-        //holdHeading( TURN_SPEED,   0.0, 1.0);    // Hold  0 Deg heading for 1 second
+            case RED_NEAR:
 
-        //driveStraight(DRIVE_SPEED,-48.0, 0.0);    // Drive in Reverse 48" (should return to approx. staring position)
+                //Red_Near
+                claw.closeClaw(); // Close Claw
+                armAndWrist.carryPosition(); // Mve Arm and Wrist to Close position
+                holdHeading(TURN_SPEED, 0.0, .5);   // Hold 0 Deg heading for 10 seconds
+                driveStraight(DRIVE_SPEED, 3.5, 0.0);    // Drive Forward 5"
+                turnToHeading(TURN_SPEED, 270.0);               // Turn  CCW to 90 Degrees
+                holdHeading(TURN_SPEED, 270.0, 0.5);   // Hold 90 Deg heading for a 1/2 second
+                driveStraight(DRIVE_SPEED, 44.0, 270.0); // Drive Forward 44"
+                armAndWrist.startPosition(); // Move Arm and Wrist to Start position
+                claw.openClaw(); // Open Claw
+                break;
+
+            case BLUE_FAR:
+                    //Blue_Far
+                    // claw.closeClaw(); // Close Claw
+                armAndWrist.carryPosition(); // Mve Arm and Wrist to Close position
+                holdHeading(TURN_SPEED, 0.0, .5);   // Hold 0 Deg heading for 10 seconds
+                driveStraight(DRIVE_SPEED, 3.5, 0.0);    // Drive Forward 5"
+                turnToHeading(TURN_SPEED, 90.0);               // Turn  CCW to 90 Degrees
+                holdHeading(TURN_SPEED, 90.0, 0.5);   // Hold 90 Deg heading for a 1/2 second
+                driveStraight(DRIVE_SPEED, 94.0, 90.0); // Drive Forward 44"
+                armAndWrist.startPosition(); // Move Arm and Wrist to Start position
+                claw.openClaw(); // Open Claw
+                break;
+
+            case RED_FAR:
+
+                    //Red_Far
+                    claw.closeClaw(); // Close Claw
+                armAndWrist.carryPosition(); // Mve Arm and Wrist to Close position
+                holdHeading(TURN_SPEED, 0.0, .5);   // Hold 0 Deg heading for 10 seconds
+                driveStraight(DRIVE_SPEED, 3.5, 0.0);    // Drive Forward 5"
+                turnToHeading(TURN_SPEED, 270.0);               // Turn  CCW to 90 Degrees
+                holdHeading(TURN_SPEED, 270.0, 0.5);   // Hold 90 Deg heading for a 1/2 second
+                driveStraight(DRIVE_SPEED, 94.0, 270.0); // Drive Forward 44"
+                armAndWrist.startPosition(); // Move Arm and Wrist to Start position
+                claw.openClaw(); // Open Claw
+                break;
+        }
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -436,4 +496,40 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
         YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
         return orientation.getYaw(AngleUnit.DEGREES);
     }
+
+    public void selectStartingPosition() {
+        telemetry.setAutoClear(true);
+        telemetry.clearAll();
+        //******select start pose*****
+        while(!isStopRequested()){
+            telemetry.addData("Initializing FTC Wires (ftcwires.org) Autonomous adopted for Team:",
+                    TEAM_NAME, " ", TEAM_NUMBER);
+            telemetry.addData("---------------------------------------","");
+            telemetry.addLine("This Auto program uses Open CV Vision Processor for Team Element detection");
+            telemetry.addData("Select Starting Position using XYAB on Logitech (or ▢ΔOX on Playstayion) on gamepad 1:","");
+            telemetry.addData("    Blue Left   ", "(X / ▢)");
+            telemetry.addData("    Blue Right ", "(Y / Δ)");
+            telemetry.addData("    Red Left    ", "(B / O)");
+            telemetry.addData("    Red Right  ", "(A / X)");
+            if(gamepad1.x){
+                startPosition = START_POSITION.BLUE_NEAR;
+                break;
+            }
+            if(gamepad1.y){
+                startPosition = START_POSITION.BLUE_FAR;
+                break;
+            }
+            if(gamepad1.b){
+                startPosition = START_POSITION.RED_FAR;
+                break;
+            }
+            if(gamepad1.a){
+                startPosition = START_POSITION.RED_NEAR;
+                break;
+            }
+            telemetry.update();
+        }
+        telemetry.clearAll();
+    }
 }
+
