@@ -215,9 +215,11 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
             case BLUE_NEAR:
 
                 //Blue_Near
+                holdHeading(TURN_SPEED, 0.0, .5);   // Hold 0 Deg heading for .5 seconds
                 claw.closeClaw(); // Close Claw
-                armAndWrist.carryPosition(); // Mve Arm and Wrist to Close position
-                holdHeading(TURN_SPEED, 0.0, .5);   // Hold 0 Deg heading for 10 seconds
+                holdHeading(TURN_SPEED, 0.0, 0.5);   // Hold 0 Deg heading for .5 seconds
+                armAndWrist.carryPosition(); // Move Arm and Wrist to Close position
+                holdHeading(TURN_SPEED, 0.0, 0.5);   // Hold 0 Deg heading for .5 seconds
                 driveStraight(DRIVE_SPEED, 3.5, 0.0);    // Drive Forward 5"
                 turnToHeading(TURN_SPEED, 90.0);               // Turn  CCW to 90 Degrees
                 holdHeading(TURN_SPEED, 90.0, 0.5);   // Hold 90 Deg heading for a 1/2 second
@@ -229,9 +231,11 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
             case RED_NEAR:
 
                 //Red_Near
-                claw.closeClaw(); // Close Claw
-                armAndWrist.carryPosition(); // Mve Arm and Wrist to Close position
                 holdHeading(TURN_SPEED, 0.0, .5);   // Hold 0 Deg heading for 10 seconds
+                claw.closeClaw(); // Close Claw
+                holdHeading(TURN_SPEED, 0.0, 0.5);   // Hold 0 Deg heading for 10 seconds
+                armAndWrist.carryPosition(); // Mve Arm and Wrist to Close position
+                holdHeading(TURN_SPEED, 0.0, 0.5);   // Hold 0 Deg heading for 10 seconds
                 driveStraight(DRIVE_SPEED, 3.5, 0.0);    // Drive Forward 5"
                 turnToHeading(TURN_SPEED, 270.0);               // Turn  CCW to 90 Degrees
                 holdHeading(TURN_SPEED, 270.0, 0.5);   // Hold 90 Deg heading for a 1/2 second
@@ -242,9 +246,11 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
 
             case BLUE_FAR:
                     //Blue_Far
-                    // claw.closeClaw(); // Close Claw
+                holdHeading(TURN_SPEED, 0.0, 10);   // Hold 0 Deg heading for 10 seconds
+                claw.closeClaw(); // Close Claw
+                holdHeading(TURN_SPEED, 0.0, 0.5);   // Hold 0 Deg heading for 10 seconds
                 armAndWrist.carryPosition(); // Mve Arm and Wrist to Close position
-                holdHeading(TURN_SPEED, 0.0, .5);   // Hold 0 Deg heading for 10 seconds
+                holdHeading(TURN_SPEED, 0.0, 0.5);   // Hold 0 Deg heading for 10 seconds
                 driveStraight(DRIVE_SPEED, 3.5, 0.0);    // Drive Forward 5"
                 turnToHeading(TURN_SPEED, 90.0);               // Turn  CCW to 90 Degrees
                 holdHeading(TURN_SPEED, 90.0, 0.5);   // Hold 90 Deg heading for a 1/2 second
@@ -254,11 +260,12 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
                 break;
 
             case RED_FAR:
-
                     //Red_Far
-                    claw.closeClaw(); // Close Claw
+                holdHeading(TURN_SPEED, 0.0, 10);   // Hold 0 Deg heading for 10 seconds
+                claw.closeClaw(); // Close Claw
+                holdHeading(TURN_SPEED, 0.0, 0.5);   // Hold 0 Deg heading for 10 seconds
                 armAndWrist.carryPosition(); // Mve Arm and Wrist to Close position
-                holdHeading(TURN_SPEED, 0.0, .5);   // Hold 0 Deg heading for 10 seconds
+                holdHeading(TURN_SPEED, 0.0, 0.5);   // Hold 0 Deg heading for 10 seconds
                 driveStraight(DRIVE_SPEED, 3.5, 0.0);    // Drive Forward 5"
                 turnToHeading(TURN_SPEED, 270.0);               // Turn  CCW to 90 Degrees
                 holdHeading(TURN_SPEED, 270.0, 0.5);   // Hold 90 Deg heading for a 1/2 second
@@ -301,7 +308,7 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
         // Ensure that the OpMode is still active
         if (opModeIsActive()) {
 
-            // Determine new target position, and pass to motor controller
+            //Determine new target position, and pass to motor controller
             int moveCounts = (int)(distance * COUNTS_PER_INCH);
             leftTarget = leftDrive.getCurrentPosition() + moveCounts;
             rightTarget = rightDrive.getCurrentPosition() + moveCounts;
