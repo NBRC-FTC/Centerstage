@@ -192,14 +192,14 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
         leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        ArmAndWrist armAndWrist = new ArmAndWrist(hardwareMap);
-        Claw claw =  new Claw(hardwareMap);
-
         // Wait for the game to start (Display Gyro value while waiting)
         while (opModeInInit()) {
             telemetry.addData(">", "Robot Heading = %4.0f", getHeading());
             telemetry.update();
         }
+        
+        ArmAndWrist armAndWrist = new ArmAndWrist(hardwareMap);
+        Claw claw =  new Claw(hardwareMap);
 
         // Set the encoders for closed loop speed control, and reset the heading.
         leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
