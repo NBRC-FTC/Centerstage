@@ -38,6 +38,7 @@ import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
@@ -110,16 +111,16 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
     private int     leftTarget    = 0;
     private int     rightTarget   = 0;
 
-    public enum START_POSITION{
+    /*public enum START_POSITION{
         BLUE_NEAR,
         BLUE_FAR,
         RED_NEAR,
         RED_FAR,
-
-
         }
-    public static START_POSITION startPosition;
 
+    public static START_POSITION startPosition;
+     */
+    int startPosition;
     public static String TEAM_NAME = "EDIT TEAM NAME"; //TODO: Enter team Name
     public static int TEAM_NUMBER = 0; //TODO: Enter team Number
 
@@ -192,14 +193,40 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
         leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        ArmAndWrist armAndWrist = new ArmAndWrist(hardwareMap);
-        Claw claw =  new Claw(hardwareMap);
+        Vision vision = new Vision(hardwareMap, telemetry, startPosition);
+
+        telemetry.addData("Selected Starting Position", startPosition);
+
+        //Activate Camera Vision that uses Open CV Vision processor for Team Element detection
+        vision.initOpenCV();
+
+        // Wait for the DS start button to be touched.
+        telemetry.addLine("Open CV Vision for Red/Blue Team Element Detection");
+        telemetry.addData("DS preview on/off", "3 dots, Camera Stream");
+        telemetry.addLine("The starting point of the robot is assumed to be on the starting tile, " +
+                "and along the edge farther from the truss legs. ");
+        telemetry.addLine("You should also have a webcam connected and positioned in a way to see " +
+                "the middle spike mark and the spike mark away from the truss (and ideally nothing else). " +
+                "We assumed the camera to be in the center of the robot. ");
+        telemetry.addData(">", "Touch Play to start OpMode");
+        telemetry.update();
+        //waitForStart();
+
+        while (!isStopRequested() && !opModeIsActive()) {
+            telemetry.addData("Selected Starting Position", startPosition);
+
+            //Run Open CV Object Detection and keep watching for the Team Element on the spike marks.
+            vision.runOpenCVObjectDetection();
+        }
 
         // Wait for the game to start (Display Gyro value while waiting)
         while (opModeInInit()) {
             telemetry.addData(">", "Robot Heading = %4.0f", getHeading());
             telemetry.update();
         }
+
+        ArmAndWrist armAndWrist = new ArmAndWrist(hardwareMap);
+        Claw claw =  new Claw(hardwareMap);
 
         // Set the encoders for closed loop speed control, and reset the heading.
         leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -211,10 +238,18 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
         //          holdHeading() is used after turns to let the heading stabilize
         //          Add a sleep(2000) after any step to keep the telemetry data visible for review
 
+        holdHeading(TURN_SPEED, 0.0, .5);   // Hold 0 Deg heading for .5 seconds
+        claw.closeClaw(); // Close Claw
+        holdHeading(TURN_SPEED, 0.0, 0.5);   // Hold 0 Deg heading for .5 seconds
+        armAndWrist.carryPosition(); // Move Arm and Wrist to Close position
+        holdHeading(TURN_SPEED, 0.0, 0.5);   // Hold 0 Deg heading for .5 seconds
+        driveStraight(DRIVE_SPEED, 3.5, 0.0);  // Drive forward 3.5 inches
+
         switch (startPosition) {
-            case BLUE_NEAR:
+            case 0://BLUE_NEAR
 
                 //Blue_Near
+                /*
                 claw.closeClaw(); // Close Claw
                 armAndWrist.carryPosition(); // Mve Arm and Wrist to Close position
                 holdHeading(TURN_SPEED, 0.0, .5);   // Hold 0 Deg heading for 10 seconds
@@ -224,11 +259,27 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
                 driveStraight(DRIVE_SPEED, 44.0, 90.0); // Drive Forward 44"
                 armAndWrist.startPosition(); // Move Arm and Wrist to Start position
                 claw.openClaw(); // Open Claw
+                 */
+                switch(vision.identifiedSpikeMarkLocation){
+                    case LEFT:
+
+                        break;
+                    case MIDDLE:
+
+                        break;
+                    case RIGHT:
+
+                        break;
+                }
+                turnToHeading(TURN_SPEED, 90.0);               // Turn  CCW to 90 Degrees
+                holdHeading(TURN_SPEED, 90.0, 0.5);   // Hold 90 Deg heading for a 1/2 second
+                driveStraight(DRIVE_SPEED, 44.0, 90.0); // Drive Forward 44"
                 break;
 
-            case RED_NEAR:
+            case 1: //RED_NEAR
 
                 //Red_Near
+                /*
                 claw.closeClaw(); // Close Claw
                 armAndWrist.carryPosition(); // Mve Arm and Wrist to Close position
                 holdHeading(TURN_SPEED, 0.0, .5);   // Hold 0 Deg heading for 10 seconds
@@ -238,11 +289,28 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
                 driveStraight(DRIVE_SPEED, 44.0, 270.0); // Drive Forward 44"
                 armAndWrist.startPosition(); // Move Arm and Wrist to Start position
                 claw.openClaw(); // Open Claw
+                 */
+                switch(vision.identifiedSpikeMarkLocation){
+                    case LEFT:
+
+                        break;
+                    case MIDDLE:
+
+                        break;
+                    case RIGHT:
+
+                        break;
+                }
+                turnToHeading(TURN_SPEED, 270.0);               // Turn  CCW to 90 Degrees
+                holdHeading(TURN_SPEED, 270.0, 0.5);   // Hold 90 Deg heading for a 1/2 second
+                driveStraight(DRIVE_SPEED, 44.0, 270.0); // Drive Forward 44"
+
                 break;
 
-            case BLUE_FAR:
+            case 2: //BLUE_FAR
                     //Blue_Far
                     // claw.closeClaw(); // Close Claw
+                /*
                 armAndWrist.carryPosition(); // Mve Arm and Wrist to Close position
                 holdHeading(TURN_SPEED, 0.0, .5);   // Hold 0 Deg heading for 10 seconds
                 driveStraight(DRIVE_SPEED, 3.5, 0.0);    // Drive Forward 5"
@@ -251,11 +319,23 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
                 driveStraight(DRIVE_SPEED, 94.0, 90.0); // Drive Forward 44"
                 armAndWrist.startPosition(); // Move Arm and Wrist to Start position
                 claw.openClaw(); // Open Claw
+                */
+                switch(vision.identifiedSpikeMarkLocation){
+                    case LEFT:
+
+                        break;
+                    case MIDDLE:
+
+                        break;
+                    case RIGHT:
+
+                        break;
+                }
                 break;
 
-            case RED_FAR:
+            case 3: //RED_FAR
 
-                    //Red_Far
+               /*     //Red_Far
                     claw.closeClaw(); // Close Claw
                 armAndWrist.carryPosition(); // Mve Arm and Wrist to Close position
                 holdHeading(TURN_SPEED, 0.0, .5);   // Hold 0 Deg heading for 10 seconds
@@ -265,6 +345,20 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
                 driveStraight(DRIVE_SPEED, 94.0, 270.0); // Drive Forward 44"
                 armAndWrist.startPosition(); // Move Arm and Wrist to Start position
                 claw.openClaw(); // Open Claw
+
+                */
+                switch(vision.identifiedSpikeMarkLocation){
+                    case LEFT:
+
+                        break;
+                    case MIDDLE:
+
+                        break;
+                    case RIGHT:
+
+                        break;
+                }
+
                 break;
         }
 
@@ -512,19 +606,19 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
             telemetry.addData("    Red Left    ", "(B / O)");
             telemetry.addData("    Red Right  ", "(A / X)");
             if(gamepad1.x){
-                startPosition = START_POSITION.BLUE_NEAR;
+                startPosition = 0; //START_POSITION.BLUE_NEAR;
                 break;
             }
             if(gamepad1.y){
-                startPosition = START_POSITION.BLUE_FAR;
+                startPosition = 2;//START_POSITION.BLUE_FAR;
                 break;
             }
             if(gamepad1.b){
-                startPosition = START_POSITION.RED_FAR;
+                startPosition = 3;//START_POSITION.RED_FAR;
                 break;
             }
             if(gamepad1.a){
-                startPosition = START_POSITION.RED_NEAR;
+                startPosition = 1;//START_POSITION.RED_NEAR;
                 break;
             }
             telemetry.update();

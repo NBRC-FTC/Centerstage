@@ -31,24 +31,28 @@ import org.opencv.imgproc.Imgproc;
 
 public class Vision {
     final Telemetry telemetry;
-    START_POSITION startPosition;
+    int startPosition;
     HardwareMap hardwareMap;
     //Vision parameters
     VisionOpenCV visionOpenCV;
+    /*
     public enum START_POSITION{
         BLUE_NEAR,
         BLUE_FAR,
         RED_NEAR,
         RED_FAR
     }
+
+     */
     public enum IDENTIFIED_SPIKE_MARK_LOCATION {
         LEFT,
         MIDDLE,
         RIGHT
     }
+
     public static IDENTIFIED_SPIKE_MARK_LOCATION identifiedSpikeMarkLocation = IDENTIFIED_SPIKE_MARK_LOCATION.LEFT;
 
-    public Vision(HardwareMap hardwareMap, Telemetry telemetry, START_POSITION startPosition) {
+    public Vision(HardwareMap hardwareMap, Telemetry telemetry, int startPosition) {
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
         this.startPosition = startPosition;
@@ -58,11 +62,11 @@ public class Vision {
      * Initialize the Open CV Object Detection processor.
      */
     public Rect rectLeftOfCameraMid, rectRightOfCameraMid;
-    private void initOpenCV() {
+    public void initOpenCV() {
         visionOpenCV = new VisionOpenCV(hardwareMap);
 
-        if (startPosition == START_POSITION.RED_FAR ||
-                startPosition == START_POSITION.BLUE_NEAR) {
+        if (startPosition == 3|| //START_POSITION.RED_FAR
+                startPosition == 0) { //START_POSITION.BLUE_NEAR
             rectLeftOfCameraMid = new Rect(10, 40, 150, 240);
             rectRightOfCameraMid = new Rect(160, 40, 470, 160);
         } else { //RED_NEAR or BLUE_FAR
@@ -74,7 +78,7 @@ public class Vision {
     /**
      * Add telemetry about Object Detection recognitions.
      */
-    private void runOpenCVObjectDetection() {
+    public void runOpenCVObjectDetection() {
         visionOpenCV.getSelection();
         telemetry.addLine("Open CV based Vision Processor for Team Element Detection");
         telemetry.addData("Identified Parking Location", identifiedSpikeMarkLocation);
@@ -167,8 +171,8 @@ public class Vision {
         }
 
         public void getSelection() {
-            if (startPosition == START_POSITION.RED_FAR ||
-                    startPosition == START_POSITION.BLUE_NEAR) {
+            if (startPosition == 3 || //START_POSITION.RED_FAR
+                    startPosition == 0) { //START_POSITION.BLUE_NEAR
                 switch (selectionAroundMid) {
                     case NONE:
                         identifiedSpikeMarkLocation = IDENTIFIED_SPIKE_MARK_LOCATION.RIGHT;
