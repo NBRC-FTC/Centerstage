@@ -194,6 +194,7 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
 
         // Wait for the game to start (Display Gyro value while waiting)
         while (opModeInInit()) {
+            telemetry.addData("Selected Starting Position", startPosition);
             telemetry.addData(">", "Robot Heading = %4.0f", getHeading());
             telemetry.update();
         }
@@ -223,9 +224,10 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
                 driveStraight(DRIVE_SPEED, 3.5, 0.0);    // Drive Forward 5"
                 turnToHeading(TURN_SPEED, 90.0);               // Turn  CCW to 90 Degrees
                 holdHeading(TURN_SPEED, 90.0, 0.5);   // Hold 90 Deg heading for a 1/2 second
-                driveStraight(DRIVE_SPEED, 44.0, 90.0); // Drive Forward 44"
+                driveStraight(DRIVE_SPEED, 41.0, 90.0); // Drive Forward 44"
                 armAndWrist.startPosition(); // Move Arm and Wrist to Start position
                 claw.openClaw(); // Open Claw
+                driveStraight(DRIVE_SPEED, -1.0, 90.0); // Drive Forward 44"
                 break;
 
             case RED_NEAR:
@@ -239,9 +241,10 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
                 driveStraight(DRIVE_SPEED, 3.5, 0.0);    // Drive Forward 5"
                 turnToHeading(TURN_SPEED, 270.0);               // Turn  CCW to 90 Degrees
                 holdHeading(TURN_SPEED, 270.0, 0.5);   // Hold 90 Deg heading for a 1/2 second
-                driveStraight(DRIVE_SPEED, 44.0, 270.0); // Drive Forward 44"
+                driveStraight(DRIVE_SPEED, 41.0, 270.0); // Drive Forward 44"
                 armAndWrist.startPosition(); // Move Arm and Wrist to Start position
                 claw.openClaw(); // Open Claw
+                driveStraight(DRIVE_SPEED, -1.0, 90.0); // Drive Forward 44"
                 break;
 
             case BLUE_FAR:
@@ -254,9 +257,10 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
                 driveStraight(DRIVE_SPEED, 3.5, 0.0);    // Drive Forward 5"
                 turnToHeading(TURN_SPEED, 90.0);               // Turn  CCW to 90 Degrees
                 holdHeading(TURN_SPEED, 90.0, 0.5);   // Hold 90 Deg heading for a 1/2 second
-                driveStraight(DRIVE_SPEED, 94.0, 90.0); // Drive Forward 44"
+                driveStraight(DRIVE_SPEED, 91.0, 90.0); // Drive Forward 44"
                 armAndWrist.startPosition(); // Move Arm and Wrist to Start position
                 claw.openClaw(); // Open Claw
+                driveStraight(DRIVE_SPEED, -1.0, 90.0); // Drive Forward 44"
                 break;
 
             case RED_FAR:
@@ -269,9 +273,10 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
                 driveStraight(DRIVE_SPEED, 3.5, 0.0);    // Drive Forward 5"
                 turnToHeading(TURN_SPEED, 270.0);               // Turn  CCW to 90 Degrees
                 holdHeading(TURN_SPEED, 270.0, 0.5);   // Hold 90 Deg heading for a 1/2 second
-                driveStraight(DRIVE_SPEED, 94.0, 270.0); // Drive Forward 44"
+                driveStraight(DRIVE_SPEED, 91.0, 270.0); // Drive Forward 44"
                 armAndWrist.startPosition(); // Move Arm and Wrist to Start position
                 claw.openClaw(); // Open Claw
+                driveStraight(DRIVE_SPEED, -1.0, 90.0); // Drive Forward 44"
                 break;
         }
 
