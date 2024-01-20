@@ -214,17 +214,20 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
 
         while (!isStopRequested() && !opModeIsActive()) {
             telemetry.addData("Selected Starting Position", startPosition);
-
+            telemetry.addData(">", "Robot Heading = %4.0f", getHeading());
+//            telemetry.update();
             //Run Open CV Object Detection and keep watching for the Team Element on the spike marks.
             vision.runOpenCVObjectDetection();
         }
 
         // Wait for the game to start (Display Gyro value while waiting)
+        /*
         while (opModeInInit()) {
             telemetry.addData(">", "Robot Heading = %4.0f", getHeading());
             telemetry.update();
         }
 
+        */
         ArmAndWrist armAndWrist = new ArmAndWrist(hardwareMap);
         Claw claw =  new Claw(hardwareMap);
 
@@ -244,7 +247,7 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
         armAndWrist.carryPosition(); // Move Arm and Wrist to Close position
         holdHeading(TURN_SPEED, 0.0, 0.5);   // Hold 0 Deg heading for .5 seconds
         driveStraight(DRIVE_SPEED, 3.5, 0.0);  // Drive forward 3.5 inches
-
+        driveStraight(DRIVE_SPEED, 12, 0.0);  // Drive forward 12 inches
         switch (startPosition) {
             case 0://BLUE_NEAR
 
@@ -262,18 +265,42 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
                  */
                 switch(vision.identifiedSpikeMarkLocation){
                     case LEFT:
-
+                        turnToHeading(TURN_SPEED, 41);
+                        holdHeading(TURN_SPEED, 41, 0.5);
+                        driveStraight(DRIVE_SPEED, 5, 41.0);    // Drive Forward 2"
+                        armAndWrist.startPosition();
+                        claw.openClaw();
+                        holdHeading(TURN_SPEED, 41.0, 5);   // Hold 0 Deg heading for .5 seconds
+                        driveStraight(DRIVE_SPEED, -5, 41.0);
+                        turnToHeading(TURN_SPEED, 0);
+                        holdHeading(TURN_SPEED, 0.0, .5);
                         break;
                     case MIDDLE:
-
+                        driveStraight(DRIVE_SPEED, 12, 0.0);  // Drive forward 12 inches
+                        armAndWrist.startPosition();
+                        claw.openClaw();
+                        holdHeading(TURN_SPEED, 0.0, 5);   // Hold 0 Deg heading for .5 seconds
                         break;
                     case RIGHT:
-
+                        driveStraight(DRIVE_SPEED, 3, 0.0);    // Drive Forward 2"
+                        turnToHeading(TURN_SPEED, -53);
+                        holdHeading(TURN_SPEED, -53, 0.5);
+                        driveStraight(DRIVE_SPEED, 2, -53.0);    // Drive Forward 2"
+                        armAndWrist.startPosition();
+                        claw.openClaw();
+                        holdHeading(TURN_SPEED, -53.0, 5);   // Hold 0 Deg heading for 5 seconds
+                        armAndWrist.carryPosition();
+                        driveStraight(DRIVE_SPEED, -2, -53.0);    // Drive Forward 2"
+                        turnToHeading(TURN_SPEED, 0);
+                        holdHeading(TURN_SPEED, 0.0, .5);   // Hold 0 Deg heading for .5 seconds
+                        driveStraight(DRIVE_SPEED, -3, 0.0);    // Drive Forward 2"
                         break;
                 }
+                driveStraight(DRIVE_SPEED, -12, 0.0);  // Drive forward 12 inches
                 turnToHeading(TURN_SPEED, 90.0);               // Turn  CCW to 90 Degrees
                 holdHeading(TURN_SPEED, 90.0, 0.5);   // Hold 90 Deg heading for a 1/2 second
                 driveStraight(DRIVE_SPEED, 44.0, 90.0); // Drive Forward 44"
+
                 break;
 
             case 1: //RED_NEAR

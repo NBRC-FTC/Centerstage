@@ -64,7 +64,7 @@ public class Vision {
     public Rect rectLeftOfCameraMid, rectRightOfCameraMid;
     public void initOpenCV() {
         visionOpenCV = new VisionOpenCV(hardwareMap);
-
+/*
         if (startPosition == 3|| //START_POSITION.RED_FAR
                 startPosition == 0) { //START_POSITION.BLUE_NEAR
             rectLeftOfCameraMid = new Rect(10, 40, 150, 240);
@@ -73,6 +73,9 @@ public class Vision {
             rectLeftOfCameraMid = new Rect(10, 40, 470, 160);
             rectRightOfCameraMid = new Rect(480, 40, 150, 240);
         }
+ */
+        rectLeftOfCameraMid = new Rect(10, 40, 470, 160);
+        rectRightOfCameraMid = new Rect(480, 40, 150, 240);
     }
 
     /**
@@ -171,6 +174,7 @@ public class Vision {
         }
 
         public void getSelection() {
+            /*
             if (startPosition == 3 || //START_POSITION.RED_FAR
                     startPosition == 0) { //START_POSITION.BLUE_NEAR
                 switch (selectionAroundMid) {
@@ -184,18 +188,19 @@ public class Vision {
                         identifiedSpikeMarkLocation = IDENTIFIED_SPIKE_MARK_LOCATION.MIDDLE;
                         break;
                 }
-            } else { //RED_RIGHT or BLUE_RIGHT
-                switch (selectionAroundMid) {
-                    case NONE:
-                        identifiedSpikeMarkLocation = IDENTIFIED_SPIKE_MARK_LOCATION.LEFT;
-                        break;
-                    case LEFT_OF_CAMERA_MID:
-                        identifiedSpikeMarkLocation = IDENTIFIED_SPIKE_MARK_LOCATION.MIDDLE;
-                        break;
-                    case RIGHT_OF_CAMERA_MID:
-                        identifiedSpikeMarkLocation = IDENTIFIED_SPIKE_MARK_LOCATION.RIGHT;
-                        break;
-                }
+            } else { //RED_NEAR or BLUE_FAR
+                */
+            switch (selectionAroundMid) {
+                case NONE:
+                    identifiedSpikeMarkLocation = IDENTIFIED_SPIKE_MARK_LOCATION.LEFT;
+                    break;
+                case LEFT_OF_CAMERA_MID:
+                    identifiedSpikeMarkLocation = IDENTIFIED_SPIKE_MARK_LOCATION.MIDDLE;
+                    break;
+                case RIGHT_OF_CAMERA_MID:
+                    identifiedSpikeMarkLocation = IDENTIFIED_SPIKE_MARK_LOCATION.RIGHT;
+                    break;
+//            }
             }
         }
     }
