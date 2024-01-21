@@ -85,9 +85,9 @@ public class Vision {
         visionOpenCV.getSelection();
         telemetry.addLine("Open CV based Vision Processor for Team Element Detection");
         telemetry.addData("Identified Parking Location", identifiedSpikeMarkLocation);
-        telemetry.addData("SatLeftOfCameraMid", visionOpenCV.satRectLeftOfCameraMid);
+        telemetry.addData("SatLeftOfCameraMid", Math.round(visionOpenCV.satRectLeftOfCameraMid));
 
-        telemetry.addData("SatRightOfCameraMid", visionOpenCV.satRectRightOfCameraMid);
+        telemetry.addData("SatRightOfCameraMid", Math.round(visionOpenCV.satRectRightOfCameraMid));
         telemetry.addData("SatRectNone", visionOpenCV.satRectNone);
         telemetry.update();
     }

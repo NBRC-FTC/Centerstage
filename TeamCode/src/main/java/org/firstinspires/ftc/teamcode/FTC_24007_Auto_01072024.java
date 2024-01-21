@@ -145,6 +145,7 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
     // These constants define the desired driving/control characteristics
     // They can/should be tweaked to suit the specific robot drive train.
     static final double     DRIVE_SPEED             = 0.2;     // Max driving speed for better distance accuracy.
+    static final double     FAST_DRIVE_SPEED             = 0.5;     // Max driving speed for better distance accuracy.
     static final double     TURN_SPEED              = 0.2;     // Max Turn speed to limit turn rate
     static final double     HEADING_THRESHOLD       = 1.0 ;    // How close must the heading get to the target before moving to next step.
                                                                // Requiring more accuracy (a smaller number) will often make the turn take longer to get into the final position.
@@ -251,55 +252,51 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
         switch (startPosition) {
             case 0://BLUE_NEAR
 
-                //Blue_Near
-                /*
-                claw.closeClaw(); // Close Claw
-                armAndWrist.carryPosition(); // Mve Arm and Wrist to Close position
-                holdHeading(TURN_SPEED, 0.0, .5);   // Hold 0 Deg heading for 10 seconds
-                driveStraight(DRIVE_SPEED, 3.5, 0.0);    // Drive Forward 5"
-                turnToHeading(TURN_SPEED, 90.0);               // Turn  CCW to 90 Degrees
-                holdHeading(TURN_SPEED, 90.0, 0.5);   // Hold 90 Deg heading for a 1/2 second
-                driveStraight(DRIVE_SPEED, 44.0, 90.0); // Drive Forward 44"
-                armAndWrist.startPosition(); // Move Arm and Wrist to Start position
-                claw.openClaw(); // Open Claw
-                 */
                 switch(vision.identifiedSpikeMarkLocation){
                     case LEFT:
-                        turnToHeading(TURN_SPEED, 41);
-                        holdHeading(TURN_SPEED, 41, 0.5);
-                        driveStraight(DRIVE_SPEED, 5, 41.0);    // Drive Forward 2"
+                        driveStraight(DRIVE_SPEED, 3.5, 0.0);
+                        turnToHeading(TURN_SPEED, 30);
+                        holdHeading(TURN_SPEED, 30, 0.5);
+                        driveStraight(DRIVE_SPEED, 4.5, 30.0);    // Drive Forward 2"
                         armAndWrist.startPosition();
                         claw.openClaw();
-                        holdHeading(TURN_SPEED, 41.0, 5);   // Hold 0 Deg heading for .5 seconds
-                        driveStraight(DRIVE_SPEED, -5, 41.0);
+                        holdHeading(TURN_SPEED, 30.0, 2);   // Hold 0 Deg heading for .5 seconds
+                        armAndWrist.carryPosition();
+                        holdHeading(TURN_SPEED, 30.0, 2);
+                        driveStraight(DRIVE_SPEED, -4.5, 30.0);
                         turnToHeading(TURN_SPEED, 0);
                         holdHeading(TURN_SPEED, 0.0, .5);
+                        driveStraight(DRIVE_SPEED, -3.5, 0.0);
+
                         break;
                     case MIDDLE:
-                        driveStraight(DRIVE_SPEED, 12, 0.0);  // Drive forward 12 inches
+                        driveStraight(DRIVE_SPEED, 11.5, 0.0);  // Drive forward 12 inches
                         armAndWrist.startPosition();
                         claw.openClaw();
-                        holdHeading(TURN_SPEED, 0.0, 5);   // Hold 0 Deg heading for .5 seconds
+                        holdHeading(TURN_SPEED, 0.0, .5);   // Hold 0 Deg heading for .5 seconds
+                        armAndWrist.carryPosition();
+                        driveStraight(DRIVE_SPEED, -12, 0.0);
                         break;
                     case RIGHT:
-                        driveStraight(DRIVE_SPEED, 3, 0.0);    // Drive Forward 2"
+                        driveStraight(DRIVE_SPEED, 4, 0.0);    // Drive Forward 2"
                         turnToHeading(TURN_SPEED, -53);
                         holdHeading(TURN_SPEED, -53, 0.5);
-                        driveStraight(DRIVE_SPEED, 2, -53.0);    // Drive Forward 2"
+                        driveStraight(DRIVE_SPEED, 4, -53.0);    // Drive Forward 2"
                         armAndWrist.startPosition();
                         claw.openClaw();
-                        holdHeading(TURN_SPEED, -53.0, 5);   // Hold 0 Deg heading for 5 seconds
+                        holdHeading(TURN_SPEED, -53.0, 2);   // Hold 0 Deg heading for 5 seconds
                         armAndWrist.carryPosition();
-                        driveStraight(DRIVE_SPEED, -2, -53.0);    // Drive Forward 2"
+                        driveStraight(DRIVE_SPEED, -4, -53.0);    // Drive Forward 2"
                         turnToHeading(TURN_SPEED, 0);
                         holdHeading(TURN_SPEED, 0.0, .5);   // Hold 0 Deg heading for .5 seconds
-                        driveStraight(DRIVE_SPEED, -3, 0.0);    // Drive Forward 2"
+                        driveStraight(DRIVE_SPEED, -4, 0.0);    // Drive Forward 2"
                         break;
                 }
                 driveStraight(DRIVE_SPEED, -12, 0.0);  // Drive forward 12 inches
                 turnToHeading(TURN_SPEED, 90.0);               // Turn  CCW to 90 Degrees
                 holdHeading(TURN_SPEED, 90.0, 0.5);   // Hold 90 Deg heading for a 1/2 second
                 driveStraight(DRIVE_SPEED, 44.0, 90.0); // Drive Forward 44"
+                armAndWrist.startPosition();
 
                 break;
 
@@ -335,29 +332,60 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
                 break;
 
             case 2: //BLUE_FAR
-                    //Blue_Far
-                    // claw.closeClaw(); // Close Claw
-                /*
-                armAndWrist.carryPosition(); // Mve Arm and Wrist to Close position
-                holdHeading(TURN_SPEED, 0.0, .5);   // Hold 0 Deg heading for 10 seconds
-                driveStraight(DRIVE_SPEED, 3.5, 0.0);    // Drive Forward 5"
-                turnToHeading(TURN_SPEED, 90.0);               // Turn  CCW to 90 Degrees
-                holdHeading(TURN_SPEED, 90.0, 0.5);   // Hold 90 Deg heading for a 1/2 second
-                driveStraight(DRIVE_SPEED, 94.0, 90.0); // Drive Forward 44"
-                armAndWrist.startPosition(); // Move Arm and Wrist to Start position
-                claw.openClaw(); // Open Claw
-                */
+
                 switch(vision.identifiedSpikeMarkLocation){
                     case LEFT:
+                        driveStraight(DRIVE_SPEED, 3.5, 0.0);
+                        turnToHeading(TURN_SPEED, 30);
+                        holdHeading(TURN_SPEED, 30, 0.5);
+                        driveStraight(DRIVE_SPEED, 4.5, 30.0);    // Drive Forward 2"
+                        armAndWrist.startPosition();
+                        claw.openClaw();
+                        holdHeading(TURN_SPEED, 30.0, 2);   // Hold 0 Deg heading for .5 seconds
+                        armAndWrist.carryPosition();
+                        holdHeading(TURN_SPEED, 30.0, 2);
+                        driveStraight(DRIVE_SPEED, -4.5, 30.0);
+                        turnToHeading(TURN_SPEED, 0);
+                        holdHeading(TURN_SPEED, 0.0, .5);
+                        driveStraight(DRIVE_SPEED, -3.5, 0.0);
 
                         break;
                     case MIDDLE:
-
+                        driveStraight(DRIVE_SPEED, 11.5, 0.0);  // Drive forward 12 inches
+                        armAndWrist.startPosition();
+                        claw.openClaw();
+                        holdHeading(TURN_SPEED, 0.0, .5);   // Hold 0 Deg heading for .5 seconds
+                        armAndWrist.carryPosition();
+                        driveStraight(DRIVE_SPEED, -12, 0.0);
                         break;
                     case RIGHT:
-
+                        driveStraight(DRIVE_SPEED, 4, 0.0);    // Drive Forward 2"
+                        turnToHeading(TURN_SPEED, -53);
+                        holdHeading(TURN_SPEED, -53, 0.5);
+                        driveStraight(DRIVE_SPEED, 4, -53.0);    // Drive Forward 2"
+                        armAndWrist.startPosition();
+                        claw.openClaw();
+                        holdHeading(TURN_SPEED, -53.0, 2);   // Hold 0 Deg heading for 5 seconds
+                        armAndWrist.carryPosition();
+                        driveStraight(DRIVE_SPEED, -4, -53.0);    // Drive Forward 2"
+                        turnToHeading(TURN_SPEED, 0);
+                        holdHeading(TURN_SPEED, 0.0, .5);   // Hold 0 Deg heading for .5 seconds
+                        driveStraight(DRIVE_SPEED, -4, 0.0);    // Drive Forward 2"
                         break;
                 }
+
+                driveStraight(DRIVE_SPEED, -12, 0.0);  // Drive forward 12 inches
+                turnToHeading(TURN_SPEED, -45.0);
+                holdHeading(TURN_SPEED, -60.0, 0.5);
+                driveStraight( FAST_DRIVE_SPEED, 26, -60.0);
+                turnToHeading(TURN_SPEED, 0.0);
+                holdHeading(TURN_SPEED, 0.0, 0.5);
+                driveStraight(FAST_DRIVE_SPEED, 31.5, 0.0);
+                turnToHeading(TURN_SPEED, 90.0);
+                holdHeading(TURN_SPEED, 90.0, 0.5);
+                driveStraight(FAST_DRIVE_SPEED, 112, 90.0);
+                claw.openClaw();
+
                 break;
 
             case 3: //RED_FAR
@@ -627,11 +655,11 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
                     TEAM_NAME, " ", TEAM_NUMBER);
             telemetry.addData("---------------------------------------","");
             telemetry.addLine("This Auto program uses Open CV Vision Processor for Team Element detection");
-            telemetry.addData("Select Starting Position using XYAB on Logitech (or ▢ΔOX on Playstayion) on gamepad 1:","");
-            telemetry.addData("    Blue Left   ", "(X / ▢)");
-            telemetry.addData("    Blue Right ", "(Y / Δ)");
-            telemetry.addData("    Red Left    ", "(B / O)");
-            telemetry.addData("    Red Right  ", "(A / X)");
+            telemetry.addData("Select Starting Position using XYAB on Logitech on gamepad 1:","");
+            telemetry.addData("    Blue Near   ", "(X)");
+            telemetry.addData("    Blue Far ", "(Y)");
+            telemetry.addData("    Red Far    ", "(B)");
+            telemetry.addData("    Red Near  ", "(A)");
             if(gamepad1.x){
                 startPosition = 0; //START_POSITION.BLUE_NEAR;
                 break;
