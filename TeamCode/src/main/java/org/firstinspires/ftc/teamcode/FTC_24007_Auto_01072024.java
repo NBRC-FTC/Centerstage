@@ -305,7 +305,7 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
                         driveStraight(DRIVE_SPEED, 3.5, 0);
                         turnToHeading(TURN_SPEED, 30);
                         holdHeading(TURN_SPEED, 30, 1);
-                        driveStraight(DRIVE_SPEED, 2, 30);    // Drive Forward 2"
+                        driveStraight(DRIVE_SPEED, 5, 30);    // Drive Forward 2"
                         armAndWrist.startPosition();
                         holdHeading(DRIVE_SPEED, 30,1);
                         claw.openClaw();
@@ -365,10 +365,17 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
                         holdHeading(TURN_SPEED, 30, 1);   // Hold 0 Deg heading for .5 seconds
                         armAndWrist.carryPosition();
                         holdHeading(TURN_SPEED, 30, 1);
-                        driveStraight(DRIVE_SPEED, -5, 30);
+                        driveStraight(DRIVE_SPEED, -10, 30);
                         turnToHeading(TURN_SPEED, 0);
                         holdHeading(TURN_SPEED, 0.0, 1);
-                        driveStraight(DRIVE_SPEED, -3.5, 0);
+                       // driveStraight(DRIVE_SPEED, -3.5, 0);
+
+                        driveStraight(FAST_DRIVE_SPEED, 35, 0);
+                        turnToHeading(TURN_SPEED, 90);
+                        holdHeading(TURN_SPEED, 90, 0.5);
+                        driveStraight(FAST_DRIVE_SPEED, 85, 90);
+                        driveStraight(DRIVE_SPEED, 6, 90);
+                        claw.openClaw();
                         break;
 
                     case MIDDLE:
@@ -379,38 +386,58 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
                         holdHeading(TURN_SPEED, 0, 1);   // Hold 0 Deg heading for .5 seconds
                         armAndWrist.carryPosition();
                         driveStraight(DRIVE_SPEED, -11.5, 0);
+
+                        driveStraight(DRIVE_SPEED, -14, 0);  // Drive forward 12 inches
+                        turnToHeading(TURN_SPEED, -45);
+                        holdHeading(TURN_SPEED, -45, 0.5);
+                        driveStraight(DRIVE_SPEED, 29, -45);
+                        turnToHeading(TURN_SPEED, 0);
+                        holdHeading(TURN_SPEED, 0, 0.5);
+                        driveStraight(FAST_DRIVE_SPEED, 32, 0);
+                        turnToHeading(TURN_SPEED, 90);
+                        holdHeading(TURN_SPEED, 90, 0.5);
+                        driveStraight(FAST_DRIVE_SPEED, 103, 90);
+                        driveStraight(DRIVE_SPEED, 2, 90);
+                        claw.openClaw();
                         break;
 
                     case RIGHT:
                         driveStraight(DRIVE_SPEED, 0, 0);    // Drive Forward 2"
                         turnToHeading(TURN_SPEED, -35);
                         holdHeading(TURN_SPEED, -35, 1);
-                        driveStraight(DRIVE_SPEED, 10, -35);    // Drive Forward 2"
+                        driveStraight(DRIVE_SPEED, 8, -35);    // Drive Forward 2"
                         armAndWrist.startPosition();
                         holdHeading(DRIVE_SPEED, -35,1);
                         claw.openClaw();
                         holdHeading(TURN_SPEED, -35, 1);   // Hold 0 Deg heading for 1 seconds
                         armAndWrist.carryPosition();
-                        driveStraight(DRIVE_SPEED, -4, -35);    // Drive Forward 2"
+                        driveStraight(DRIVE_SPEED, -8, -35);    // Drive Forward 2"
                         turnToHeading(TURN_SPEED, 0);
                         holdHeading(TURN_SPEED, 0, 1);   // Hold 0 Deg heading for 1 seconds
-                        driveStraight(DRIVE_SPEED, -4, 0);    // Drive Forward 2"
+
+                        driveStraight(FAST_DRIVE_SPEED, 35, 0);
+                        turnToHeading(TURN_SPEED, 90);
+                        holdHeading(TURN_SPEED, 90, 0.5);
+                        driveStraight(FAST_DRIVE_SPEED, 85, 90);
+                        driveStraight(DRIVE_SPEED, 6, 90);
+                        claw.openClaw();
+
                         break;
                 }
 
-                driveStraight(DRIVE_SPEED, -14, 0);  // Drive forward 12 inches
+               /* driveStraight(DRIVE_SPEED, -14, 0);  // Drive forward 12 inches
                 turnToHeading(TURN_SPEED, -45);
                 holdHeading(TURN_SPEED, -45, 0.5);
-                driveStraight(DRIVE_SPEED, 27, -45);
+                driveStraight(DRIVE_SPEED, 29, -45);
                 turnToHeading(TURN_SPEED, 0);
                 holdHeading(TURN_SPEED, 0, 0.5);
-                driveStraight(FAST_DRIVE_SPEED, 30, 0);
+                driveStraight(FAST_DRIVE_SPEED, 32, 0);
                 turnToHeading(TURN_SPEED, 90);
                 holdHeading(TURN_SPEED, 90, 0.5);
-                driveStraight(FAST_DRIVE_SPEED, 110, 90);
+                driveStraight(FAST_DRIVE_SPEED, 103, 90);
                 driveStraight(DRIVE_SPEED, 2, 90);
                 claw.openClaw();
-
+*/
                 break;
 
             case 3: //RED_FAR
@@ -420,7 +447,7 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
                         //driveStraight(DRIVE_SPEED, 3.5, 0);
                         turnToHeading(TURN_SPEED, 30);
                         holdHeading(TURN_SPEED, 30, .5);
-                        driveStraight(DRIVE_SPEED, 5, 30);    // Drive Forward 2"
+                        driveStraight(DRIVE_SPEED, 6, 30);    // Drive Forward 2"
                         armAndWrist.startPosition();
                         holdHeading(DRIVE_SPEED, 30,1);
                         claw.openClaw();
@@ -431,6 +458,19 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
                         turnToHeading(TURN_SPEED, 0);
                         holdHeading(TURN_SPEED, 0.0, 1);
                         //driveStraight(DRIVE_SPEED, -3.5, 0);
+
+                        driveStraight(DRIVE_SPEED, -12, 0);  // Drive forward 12 inches
+                        turnToHeading(TURN_SPEED, 45);
+                        holdHeading(TURN_SPEED, 45, 0.5);
+                        driveStraight(DRIVE_SPEED, 27, 45);
+                        turnToHeading(TURN_SPEED, 0);
+                        holdHeading(TURN_SPEED, 0, 0.5);
+                        driveStraight(FAST_DRIVE_SPEED, 31, 0);
+                        turnToHeading(TURN_SPEED, -90);
+                        holdHeading(TURN_SPEED, -90, 0.5);
+                        driveStraight(FAST_DRIVE_SPEED, 110, -90);
+                        driveStraight(DRIVE_SPEED, 2, -90);
+                        claw.openClaw();
                         break;
 
                     case MIDDLE:
@@ -441,24 +481,51 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
                         holdHeading(TURN_SPEED, 0, 1);   // Hold 0 Deg heading for .5 seconds
                         armAndWrist.carryPosition();
                         driveStraight(DRIVE_SPEED, -11, 0);
+
+                        driveStraight(DRIVE_SPEED, -12, 0);  // Drive forward 12 inches
+                        turnToHeading(TURN_SPEED, 45);
+                        holdHeading(TURN_SPEED, 45, 0.5);
+                        driveStraight(DRIVE_SPEED, 27, 45);
+                        turnToHeading(TURN_SPEED, 0);
+                        holdHeading(TURN_SPEED, 0, 0.5);
+                        driveStraight(FAST_DRIVE_SPEED, 31, 0);
+                        turnToHeading(TURN_SPEED, -90);
+                        holdHeading(TURN_SPEED, -90, 0.5);
+                        driveStraight(FAST_DRIVE_SPEED, 110, -90);
+                        driveStraight(DRIVE_SPEED, 2, -90);
+                        claw.openClaw();
                         break;
 
                     case RIGHT:
                         driveStraight(DRIVE_SPEED, 0, 0);    // Drive Forward 2"
                         turnToHeading(TURN_SPEED, -34);
                         holdHeading(TURN_SPEED, -34, .5);
-                        driveStraight(DRIVE_SPEED, 8.5, -34);    // Drive Forward 2"
+                        driveStraight(DRIVE_SPEED, 9.25, -34);    // Drive Forward 2"
                         armAndWrist.startPosition();
                         holdHeading(DRIVE_SPEED, -34,1);
                         claw.openClaw();
                         holdHeading(TURN_SPEED, -34, 1);   // Hold 0 Deg heading for 1 seconds
                         armAndWrist.carryPosition();
-                        driveStraight(DRIVE_SPEED, -8.5, -34);    // Drive Forward 2"
+                        driveStraight(DRIVE_SPEED, -9.75, -34);    // Drive Forward 2"
                         turnToHeading(TURN_SPEED, 0);
                         holdHeading(TURN_SPEED, 0, .5);   // Hold 0 Deg heading for 1 seconds
-                        driveStraight(DRIVE_SPEED, 0, 0);    // Drive Forward 2"
+                        //driveStraight(DRIVE_SPEED, 0, 0);    // Drive Forward 2"
+
+                        //driveStraight(DRIVE_SPEED, -12, 0);  // Drive forward 12 inches
+                        //turnToHeading(TURN_SPEED, 45);
+                        //holdHeading(TURN_SPEED, 45, 0.5);
+                        //driveStraight(DRIVE_SPEED, 15, 45);
+                        //turnToHeading(TURN_SPEED, 0);
+                        //holdHeading(TURN_SPEED, 0, 0.5);
+                        driveStraight(FAST_DRIVE_SPEED, 35, 0);
+                        turnToHeading(TURN_SPEED, -90);
+                        holdHeading(TURN_SPEED, -90, 0.5);
+                        driveStraight(FAST_DRIVE_SPEED, 85, -90);
+                        driveStraight(DRIVE_SPEED, 6, -90);
+                        claw.openClaw();
                         break;
                 }
+                /*
                 driveStraight(DRIVE_SPEED, -12, 0);  // Drive forward 12 inches
                 turnToHeading(TURN_SPEED, 45);
                 holdHeading(TURN_SPEED, 45, 0.5);
@@ -471,6 +538,8 @@ public class FTC_24007_Auto_01072024 extends LinearOpMode {
                 driveStraight(FAST_DRIVE_SPEED, 110, -90);
                 driveStraight(DRIVE_SPEED, 2, -90);
                 claw.openClaw();
+
+                 */
                 break;
         }
 
